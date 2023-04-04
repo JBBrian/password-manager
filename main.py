@@ -41,29 +41,10 @@ def save():
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="Make sure you haven't left any fields empty.")
     else:
-        # try:
-        #     with open("data.json", "r") as data_file:
-        #         # Reading old data
-        #         data = json.load(data_file)
-        try:
-            with open("data.json", "w") as data_file:
-                json.dump(new_data, data_file, indent=4)
-        # else:
-        #     # Updating old data with new data
-        #     data.update(new_data)
-        #
-        #     with open("data.json", "w") as data_file:
-        #         # Saving updated data
-        #         json.dump(data, data_file, indent=4)
-        finally:
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
-
-# ------------------------SEARCH PASSWORD------------------------------ #
-
-
-def find_password():
-    website = website_entry.get()
+        with open("data.json", "a") as data_file:
+            json.dump(new_data, data_file, indent=4)
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -95,9 +76,6 @@ password_entry.grid(row=3, column=1)
 
 generate_button = Button(text="GENERATE PASSWORD", command=generate_password)
 generate_button.grid(row=3, column=2)
-
-search_button = Button(text="SEARCH PASSWORD", command=find_password)
-search_button.grid(row=1, column=2)
 
 add_button = Button(text="ADD", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
